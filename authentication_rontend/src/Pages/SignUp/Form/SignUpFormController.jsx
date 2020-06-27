@@ -3,6 +3,7 @@ import Forms from "./SignUpForm";
 import axios from "axios";
 // import { Redirect } from 'react-router-dom'
 import isEmail from 'validator/lib/isEmail';
+import { Redirect } from "react-router-dom";
  
 
 export default class FormController extends Component {
@@ -124,11 +125,7 @@ export default class FormController extends Component {
         console.log(response.status);
        
       } 
-      // else {
-
-      //   console.log("This is Invalid response");
-
-      // }
+      
     } catch (error) {
 
       //Check error and a display div to login
@@ -139,19 +136,12 @@ export default class FormController extends Component {
   };
 
 
-  // checkResponse = () => {
-  //   const response = this.state.response
-  //   if (response) {
-      
-  //   } else {
-      
-  //   }
-    
-
-  // }
-
 
   render() {
+    if(this.state.response.status === 200){
+      return <Redirect to = "/LogIn"></Redirect>
+
+    }
     return (
       <div>
         <Forms
