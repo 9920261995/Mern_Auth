@@ -2,8 +2,15 @@ import React from 'react'
 import { Navbar, Nav, Container } from 'react-bootstrap'
 import { HeadLink } from './HeaderStyled'
 import AuthContext from '../Store/Auth'
+import styled from 'styled-components'
+
+const StyledNav = styled(Nav)`
+    display : ${props => props.display};
+
+` 
 
 const BaseLayout = () => {
+    const token = localStorage.getItem('token')
     return (
         <AuthContext.Consumer>
             {(context)=>(
@@ -12,14 +19,14 @@ const BaseLayout = () => {
                         <Navbar.Brand href="#home">FlopKArt</Navbar.Brand>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                         <Navbar.Collapse id="responsive-navbar-nav">
-                            <Nav className="ml-auto">
-                                <HeadLink display = {context.isAuthenticated===true?"none":""} to="/LogIn">Log In</HeadLink>
-                                <HeadLink display = {context.isAuthenticated ===true?"none":""} to="/SignUp">Sign Up</HeadLink>
-                            </Nav>
+                            <StyledNav className="ml-auto" display = {token !== null ?"none":""}>
+                                <HeadLink to="/LogIn">Log In</HeadLink>
+                                <HeadLink to="/SignUp">Sign Up</HeadLink>
+                            </StyledNav>
 
                         </Navbar.Collapse>
                     </Container>
-                </Navbar>
+                </Navbar> 
             )}
             
         </AuthContext.Consumer>

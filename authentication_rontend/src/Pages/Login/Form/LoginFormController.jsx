@@ -22,8 +22,9 @@ export default class FormController extends Component {
   };
 
   handleOnClick = async () => {
-    // const loginStatus = this.context.updateLoginStatus;
+    
     try {
+      // window.location.reload()
       const username = this.state.username.toLowerCase();
       const password = this.state.password;
       const data = {
@@ -36,14 +37,15 @@ export default class FormController extends Component {
     
       const response = await axios.post(url,data)
       const token = response.data
-
+      localStorage.setItem('token',response)
       if (response){
-        this.context.updateLoginStatus(response)
+        this.context.updateLoginStatus()
       }
 
       const decoded = jwt(token)
-      // console.log(decoded)
-
+    
+      
+     
       this.setState({
         username: "",
         password: "",
@@ -58,9 +60,10 @@ export default class FormController extends Component {
   };
 
   render() {
-    if(this.state.id){
+    if(localStorage.getItem('token')!== null){
       return<Redirect to = "/"></Redirect>
     }
+   
     return (
       <div>
         <Forms onChange={this.handleOnChange} onClick={this.handleOnClick} />
