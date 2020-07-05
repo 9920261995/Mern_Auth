@@ -4,6 +4,10 @@ import axios from "axios";
 import jwt from 'jwt-decode'
 import { Redirect } from "react-router-dom";
 import AuthContext from '../../../Store/Auth'
+import { auth, provider } from "../../../firebase.config";
+import dotenv from 'dotenv'
+
+
 
 export default class FormController extends Component {
   static contextType = AuthContext;
@@ -21,7 +25,27 @@ export default class FormController extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  handleOnClick = async () => {
+  signInWithGoogle = async () => {
+    try {
+       await auth.signInWithPopup(provider)
+      .then(res =>{  
+        const firebaseResponse = res.additionalUserInfo.profile
+        const token = firebaseResponse
+        localStorage.setItem('token',token)
+        if (token){
+          this.context.updateLoginStatus()
+        }
+      })
+      .catch(error =>{
+        console.log(error)
+      });
+      
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  handleOnClickLogin = async () => {
     
     try {
       const username = this.state.username.toLowerCase();
@@ -59,13 +83,15 @@ export default class FormController extends Component {
   };
 
   render() {
+    dotenv.config()
+    console.log(process.env.API_KEY)
     if(localStorage.getItem('token')!== null){
       return<Redirect to = "/"></Redirect>
     }
    
     return (
       <div>
-        <Forms onChange={this.handleOnChange} onClick={this.handleOnClick} />
+        <Forms onChange={this.handleOnChange} onClickLogin={this.handleOnClickLogin} signInWithGoogle={this.signInWithGoogle} />
       </div>
     );
   }

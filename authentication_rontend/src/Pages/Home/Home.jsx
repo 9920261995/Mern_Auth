@@ -1,6 +1,7 @@
 import React from 'react'
 import {Button} from 'react-bootstrap'
 import AuthContext from '../../Store/Auth'
+import {auth} from '../../firebase.config'
 
 export default class Home extends React.Component {
 
@@ -11,6 +12,7 @@ export default class Home extends React.Component {
 
     static contextType = AuthContext
     sessionLogout = ()=>{
+        auth.signOut();
         localStorage.removeItem('token')
         window.location.reload();
     }

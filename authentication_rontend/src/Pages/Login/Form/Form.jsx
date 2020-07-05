@@ -1,8 +1,10 @@
 import React, { useRef } from "react";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
+import { GoogleLoginButton } from "react-social-login-buttons";
 
 export const Forms = (props) => {
   const ref = useRef("username");
+
   return (
     <div>
       <div
@@ -35,17 +37,16 @@ export const Forms = (props) => {
         />
       </Form.Group>
       <p>{props.validation}</p>
-      <Button variant="primary" onClick={props.onClick}>
+      <Button
+        style={{ marginBottom: "3em" }}
+        variant="primary"
+        onClick={props.onClickLogin}
+      >
         Log In !!
       </Button>
-      <Row>
-        <Col lg ={6}>
-          <Button>Login With Google</Button>
-        </Col>
-        <Col lg ={6}>
-          <Button>Login With Facebook</Button>
-        </Col>
-      </Row>
+      <div style={{ textAlign: "center" }}>or</div>
+
+      <GoogleLoginButton onClick={props.signInWithGoogle} />
     </div>
   );
 };
