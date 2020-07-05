@@ -5,8 +5,11 @@ import SignUp from './Pages/SignUp/Signup'
 import Home from './Pages/Home/Home'
 import { PrivateRoutes } from './Pages/PrivateRoutes'
 import AuthContext from './Store/Auth'
+// import * as firebase from 'firebase'
+// import {firebaseConfig} from './firebase.config'
 
 class Navigate extends Component {
+
     state ={
         isAuthenticated:false
     }

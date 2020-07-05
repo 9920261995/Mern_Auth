@@ -1,8 +1,8 @@
-import React,{useRef} from "react";
-import { Form, Button } from "react-bootstrap";
+import React, { useRef } from "react";
+import { Form, Button, Row, Col } from "react-bootstrap";
 
 export const Forms = (props) => {
-   const ref = useRef("username")
+  const ref = useRef("username");
   return (
     <div>
       <div
@@ -21,7 +21,7 @@ export const Forms = (props) => {
           name="username"
           placeholder="Enter your email"
           onChange={props.onChange}
-          ref = {ref}
+          ref={ref}
         />
       </Form.Group>
       <p>{props.validation}</p>
@@ -38,6 +38,14 @@ export const Forms = (props) => {
       <Button variant="primary" onClick={props.onClick}>
         Log In !!
       </Button>
+      <Row>
+        <Col lg ={6}>
+          <Button>Login With Google</Button>
+        </Col>
+        <Col lg ={6}>
+          <Button>Login With Facebook</Button>
+        </Col>
+      </Row>
     </div>
   );
 };

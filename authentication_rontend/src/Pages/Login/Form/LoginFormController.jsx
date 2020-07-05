@@ -24,7 +24,6 @@ export default class FormController extends Component {
   handleOnClick = async () => {
     
     try {
-      // window.location.reload()
       const username = this.state.username.toLowerCase();
       const password = this.state.password;
       const data = {
